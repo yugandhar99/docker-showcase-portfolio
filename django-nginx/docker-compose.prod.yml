@@ -1,0 +1,31 @@
+services:
+  web1:
+    hostname: web1
+    build:
+      context: ./web
+      target: prod
+    command: gunicorn helloworld.wsgi:application --bind 0.0.0.0:5000 --workers 2
+    env_file: ./.env.example
+    expose:
+      - "5000"
+    restart: unless-stopped
+
+  web2:
+    hostname: web2
+    build:
+      context: ./web
+      target: prod
+    command: gunicorn helloworld.wsgi:application --bind 0.0.0.0:5000 --workers 2
+    env_file: ./.env.example
+    expose:
+      - "5000"
+    restart: unless-stopped
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - web1
+      - web2
+    restart: unless-stopped

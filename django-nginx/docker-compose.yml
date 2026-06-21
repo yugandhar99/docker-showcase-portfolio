@@ -1,0 +1,39 @@
+services:
+  web1:
+    hostname: web1
+    build:
+      context: ./web
+      target: dev
+    command: python manage.py runserver 0.0.0.0:5000
+    env_file: ./.env.example
+    ports:
+      - "81:5000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web2:
+    hostname: web2
+    build:
+      context: ./web
+      target: dev
+    command: python manage.py runserver 0.0.0.0:5000
+    env_file: ./.env.example
+    ports:
+      - "82:5000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - web1
+      - web2
+    restart: unless-stopped
