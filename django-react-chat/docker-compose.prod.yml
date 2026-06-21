@@ -1,0 +1,47 @@
+services:
+  client:
+    build:
+      context: client
+      target: prod
+    env_file: ./client/.env.prod.sample
+    ports:
+      - "5000:5000"
+    networks:
+      - client-server
+    depends_on:
+      - server
+    restart: unless-stopped
+
+  server:
+    build:
+      context: server
+      target: prod
+    command: gunicorn server.wsgi:application --bind 0.0.0.0:8000 --workers 3
+    volumes:
+      - media-volume:/app/media
+    env_file: ./server/.env.prod.sample
+    ports:
+      - "8000:8000"
+    networks:
+      - client-server
+      - server-db
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:14-alpine
+    env_file: ./db/.env.prod.sample
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - server-db
+    restart: unless-stopped
+
+networks:
+  client-server:
+  server-db:
+
+volumes:
+  media-volume:
+  db-data:
