@@ -9,7 +9,7 @@ services:
     expose:
       - "5000"
     restart: unless-stopped
-
+ 
   web2:
     hostname: web2
     build:
