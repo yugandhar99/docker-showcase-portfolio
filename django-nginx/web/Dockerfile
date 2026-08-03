@@ -1,6 +1,6 @@
 # --- Base Stage ---
 FROM python:3.11-slim-bookworm AS base
- 
+
 WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1     PYTHONUNBUFFERED=1
 
