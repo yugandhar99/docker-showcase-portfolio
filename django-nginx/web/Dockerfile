@@ -1,6 +1,6 @@
 # --- Base Stage ---
 FROM python:3.11-slim-bookworm AS base
-
+ 
 WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1     PYTHONUNBUFFERED=1
 
@@ -10,7 +10,8 @@ COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
-RUN sed -i 's/$//g' entrypoint.sh entrypoint.prod.sh &&     chmod +x entrypoint.sh entrypoint.prod.sh
+RUN sed -i 's/
+$//g' entrypoint.sh entrypoint.prod.sh &&     chmod +x entrypoint.sh entrypoint.prod.sh
 
 EXPOSE 5000
 
