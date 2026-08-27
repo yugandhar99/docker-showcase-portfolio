@@ -1,4 +1,4 @@
-services:
+services: 
   web1:
     hostname: web1
     build:
