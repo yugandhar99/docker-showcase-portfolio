@@ -1,4 +1,4 @@
 #!/bin/sh
-set -e
+set -e 
 python manage.py collectstatic --noinput || true
 exec "$@"
