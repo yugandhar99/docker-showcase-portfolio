@@ -1,5 +1,5 @@
 from setuptools import find_packages, setup
-import os 
+import os
 
 
 # Get more https://pypi.org/pypi?%3Aaction=list_classifiers
