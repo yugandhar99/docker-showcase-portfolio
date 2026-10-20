@@ -1,4 +1,4 @@
-# Docker Show c ase Portfolio
+# Docker Show case Portfolio
 
 A practical Docker and Docker Compose portfolio with three containerized application patterns. The repository is organized to show career growth from basic container networking to full-stack multi-service deployments.
 
