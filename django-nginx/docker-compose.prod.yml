@@ -1,5 +1,5 @@
 services:
-  web1:
+  web1: 
     hostname: web1
     build:
       context: ./web
